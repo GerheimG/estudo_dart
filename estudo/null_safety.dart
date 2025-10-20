@@ -1,7 +1,7 @@
 void main() {
   String? nome;
 
-  String saudacao = "Olá";
+  //String saudacao = "Olá";
 
   print('Exemplo 1: Variável nula');
   print(nome);
