@@ -49,5 +49,5 @@ void main() {
   List<double> valores = [a, b, c];
   valores.sort();
 
-  print('Valores em ordem crescente: ${valores[0]}, ${valores[1]}, ${valores[2]}');
+  print('Valores em ordem decrescente: ${valores[2]}, ${valores[1]}, ${valores[0]}');
 }
