@@ -27,7 +27,7 @@ void main() {
       } else {
 
         while (b == null) {
-          stdout.write('Insira o valor de A: ');
+          stdout.write('Insira o valor de B: ');
           String? valor = stdin.readLineSync();
 
           try {
