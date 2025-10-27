@@ -8,7 +8,6 @@ void main() {
   while (repetir) {
     int? tempo;
     double? aceleracao;
-    // Entrada de tempo
     while (tempo == null) {
       stdout.write('Insira o tempo: ');
       String? valor = stdin.readLineSync();
@@ -36,7 +35,6 @@ void main() {
       print('Tempo: $t s - Velocidade: ${velocidade.toStringAsFixed(2)} m/s');
     }
 
-    // Perguntar se deseja repetir
     stdout.write('\nDeseja repetir? (s/n): ');
     String? resposta = stdin.readLineSync();
     if (resposta == null || resposta.toLowerCase() != 's') {
