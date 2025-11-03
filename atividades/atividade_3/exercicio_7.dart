@@ -44,7 +44,7 @@ void main() {
     List<String> resultado = [];
 
     for (var p in palavras) {
-      if (p[p.length -1] == 'r' || p[p.length -1] == 'R') {
+      if (p[p.length -1].toLowerCase() == 'r') {
         resultado.add(p);
       }
     }
