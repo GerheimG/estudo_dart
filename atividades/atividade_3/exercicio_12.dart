@@ -8,12 +8,12 @@ import 'dart:io';
 
 void main() {
   while (true) {
-    List<String> lista_nomes = [];
+    List<String> nomes = [];
     List<int> lista_estoque = [];
-    List<bool> lista_ativos = [];
+    List<bool> ativos = [];
 
-    int? qtd;
-    while (qtd == null) {
+    int? quantidade;
+    while (quantidade == null) {
       stdout.write('\nQuantos registros: ');
       String? entradaQtd = stdin.readLineSync();
 
@@ -22,14 +22,14 @@ void main() {
         continue;
       }
 
-      qtd = int.tryParse(entradaQtd);
-      if (qtd == null || qtd <= 0) {
+      quantidade = int.tryParse(entradaQtd);
+      if (quantidade == null || quantidade <= 0) {
         print('Quantidade inválida');
-        qtd = null;
+        quantidade = null;
       }
     }
 
-    for (int i = 0; i < qtd; i++) {
+    for (int i = 0; i < quantidade; i++) {
 
       String? nome;
       while (nome == null) {
@@ -81,22 +81,22 @@ void main() {
         }
       }
 
-      lista_nomes.add(nome);
+      nomes.add(nome);
       lista_estoque.add(estoque);
-      lista_ativos.add(ativo);
+      ativos.add(ativo);
     }
 
     int soma_ativos = 0;
-    for (int i = 0; i < lista_nomes.length; i++) {
-      if (lista_ativos[i]) {
+    for (int i = 0; i < nomes.length; i++) {
+      if (ativos[i]) {
         soma_ativos += lista_estoque[i];
       }
     }
 
     print('Produtos ativos:');
-    for (int i = 0; i < lista_nomes.length; i++) {
-      if (lista_ativos[i]) {
-        print(' ° ${lista_nomes[i]}: ${lista_estoque[i]} unidades.');
+    for (int i = 0; i < nomes.length; i++) {
+      if (ativos[i]) {
+        print(' ° ${nomes[i]}: ${lista_estoque[i]} unidades.');
       }
     }
     print('Soma total do estoque dos procutos ativos: $soma_ativos');

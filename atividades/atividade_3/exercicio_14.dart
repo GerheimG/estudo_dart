@@ -6,11 +6,11 @@ import 'dart:io';
 
 void main() {
   while (true) {
-    List<String> lista_nomes = [];
+    List<String> nomes = [];
     List<double> lista_precos = [];
 
-    int? qtd;
-    while (qtd == null) {
+    int? quantidade;
+    while (quantidade == null) {
       stdout.write('Quantos registros: ');
       String? entradaQtd = stdin.readLineSync();
 
@@ -19,14 +19,14 @@ void main() {
         continue;
       }
 
-      qtd = int.tryParse(entradaQtd);
-      if (qtd == null || qtd <= 0) {
+      quantidade = int.tryParse(entradaQtd);
+      if (quantidade == null || quantidade <= 0) {
         print('Quantidade inválida');
-        qtd = null;
+        quantidade = null;
       }
     }
 
-    for (int i = 0; i < qtd; i++) {
+    for (int i = 0; i < quantidade; i++) {
 
       String? nome;
       while (nome == null) {
@@ -58,18 +58,18 @@ void main() {
         }
       }
 
-      lista_nomes.add(nome);
+      nomes.add(nome);
       lista_precos.add(preco);
     }
 
     if (lista_precos.isNotEmpty) {
       double maior_preco = lista_precos[0];
-      String maior_nome = lista_nomes[0];
+      String maior_nome = nomes[0];
 
       for (int i = 1; i < lista_precos.length; i++) {
         if (lista_precos[i] > maior_preco) {
           maior_preco = lista_precos[i];
-          maior_nome = lista_nomes[i];
+          maior_nome = nomes[i];
         }
       }
 

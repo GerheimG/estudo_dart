@@ -8,11 +8,11 @@ import 'dart:io';
 
 void main() {
   while (true) {
-    List<String> lista_nomes = [];
+    List<String> nomes = [];
     List<int> lista_estoque = [];
 
-    int? qtd;
-    while (qtd == null) {
+    int? quantidade;
+    while (quantidade == null) {
       stdout.write('\nQuantos registros: ');
       String? entradaQtd = stdin.readLineSync();
 
@@ -21,14 +21,14 @@ void main() {
         continue;
       }
 
-      qtd = int.tryParse(entradaQtd);
-      if (qtd == null || qtd <= 0) {
+      quantidade = int.tryParse(entradaQtd);
+      if (quantidade == null || quantidade <= 0) {
         print('Quantidade inválida');
-        qtd = null;
+        quantidade = null;
       }
     }
 
-    for (int i = 0; i < qtd; i++) {
+    for (int i = 0; i < quantidade; i++) {
 
       String? nome;
       while (nome == null) {
@@ -60,15 +60,15 @@ void main() {
         }
       }
 
-      lista_nomes.add(nome);
+      nomes.add(nome);
       lista_estoque.add(estoque);
     }
 
     List<String> lista_resumo = [];
 
-    for (int i = 0; i < lista_nomes.length; i++) {
+    for (int i = 0; i < nomes.length; i++) {
       String resumo =
-          'Produto: ${lista_nomes[i]} - Estoque: ${lista_estoque[i]}';
+          'Produto: ${nomes[i]} - Estoque: ${lista_estoque[i]}';
       lista_resumo.add(resumo);
     }
 

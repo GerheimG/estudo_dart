@@ -10,8 +10,8 @@ void main() {
   while (true) {
     List<String> palavras = [];
 
-    int? qtd;
-    while (qtd == null) {
+    int? quantidade;
+    while (quantidade == null) {
       stdout.write('Quantas palavras na lista? ');
       String? entradaQtd = stdin.readLineSync();
 
@@ -20,14 +20,14 @@ void main() {
         continue;
       }
 
-      qtd = int.tryParse(entradaQtd);
-      if (qtd == null || qtd <= 0) {
+      quantidade = int.tryParse(entradaQtd);
+      if (quantidade == null || quantidade <= 0) {
         print('Quantidade inválida.');
-        qtd = null;
+        quantidade = null;
       }
     }
 
-    for (int i = 0; i < qtd; i++) {
+    for (int i = 0; i < quantidade; i++) {
       String? palavra;
       while (palavra == null) {
         stdout.write('${i + 1}ª Palavra: ');

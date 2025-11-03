@@ -44,11 +44,7 @@ void main() {
       }
       numeros.add(numero);
     }
-
-      
       List<int> resultado = [];
-
-
       for (var n in numeros) {
         if (n % 2 != 0) {
           resultado.add(n * 2);
@@ -56,7 +52,6 @@ void main() {
           resultado.add(n);
         }
       }
-
       print(resultado);
 
       while (true) {
