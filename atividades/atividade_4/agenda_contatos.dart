@@ -176,7 +176,18 @@ void main() {
 
               nomeBusca = entradaBusca.trim();
 
+              var contato = agenda.firstWhere(
+                (contato) => (contato['nome'] ?? '').toLowerCase() == nomeBusca!.toLowerCase(),
+                  orElse: () => {}
+                  );
+                
+              if (contato.isEmpty) {
+                print('Contato não encontrado.');
+                break;
+              }
+
               String? campoUpdate;
+              // ERROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO ERRO NAO TEM QUE ARRUMAR AQUI O
               while (campoUpdate == null) {
                 stdout.write('Qual campo deseja alterar (NOME | EMAIL | TELEFONE): ');
                 String? entradaUp = stdin.readLineSync();
@@ -188,8 +199,39 @@ void main() {
 
                 campoUpdate = entradaUp.trim().toLowerCase();
 
-              }
+                if (campoUpdate == 'nome') {
+                  stdout.write('Digite o novo nome: ');
+                  String? novoNome = stdin.readLineSync()?.trim();
 
+                  if (novoNome == null || novoNome.isEmpty) {
+                    print('Nome inválido. Atualização cancelada.');
+                    break;
+                  }
+
+                  contato['nome'] = novoNome;
+                  print('Nome atualizado com sucesso para: ${contato['nome']}');
+                  break;
+                } else if (campoUpdate == 'email') {
+                  stdout.write('Digite o novo email: ');
+                  String? novoEmail = stdin.readLineSync()?.trim();
+
+                  if (novoEmail == null || novoEmail.isEmpty) {
+                    print('Email inválido. Atualização cancelada.');
+                    break;
+                  }
+
+                  if (novoEmail.contains('@') && novoEmail.endsWith('.com')) {
+                    novoEmail = novoEmail.trim();
+                  } else {
+                    print('Email inválido');
+                    continue;
+                  }
+
+                  contato['email'] = novoEmail;
+                  print('Email atualizado com sucesso para: ${contato['email']}');
+                  break;
+                }
+              }
             }
           }
         }
