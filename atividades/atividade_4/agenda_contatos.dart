@@ -66,10 +66,11 @@ void main() {
               }
 
               nomeContato = entradaCont.trim();
+              nomeContato = nomeContato[0].toUpperCase() + nomeContato.substring(1).toLowerCase();
 
               print('Caso não queria informar algum digite "0"');
 
-              while (emailContato == null) {
+            while (emailContato == null) {
                   stdout.write('Insira o email: ');
                   String? entradaEmail = stdin.readLineSync();
 
@@ -96,7 +97,7 @@ void main() {
 
                 }
               
-              while (telefoneContato == null) {
+            while (telefoneContato == null) {
                   stdout.write('Insira o telefone (sem DDD) xxxxx-xxxx: ');
                   String? entradaTel = stdin.readLineSync();
 
@@ -183,21 +184,20 @@ void main() {
                 
               if (contato.isEmpty) {
                 print('Contato não encontrado.');
-                break;
+                nomeBusca = null;
               }
 
               String? campoUpdate;
-              // ERROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO ERRO NAO TEM QUE ARRUMAR AQUI O
               while (campoUpdate == null) {
                 stdout.write('Qual campo deseja alterar (NOME | EMAIL | TELEFONE): ');
                 String? entradaUp = stdin.readLineSync();
 
                 if (entradaUp == null || entradaUp.trim().isEmpty) {
                   print('Entrada inválida');
-                  continue;
+                  campoUpdate = null;
                 }
 
-                campoUpdate = entradaUp.trim().toLowerCase();
+                campoUpdate = entradaUp!.trim().toLowerCase();
 
                 if (campoUpdate == 'nome') {
                   stdout.write('Digite o novo nome: ');
@@ -223,7 +223,7 @@ void main() {
                   if (novoEmail.contains('@') && novoEmail.endsWith('.com')) {
                     novoEmail = novoEmail.trim();
                   } else {
-                    print('Email inválido');
+                    print('Email inválido. Atualização cancelada.');
                     continue;
                   }
 
@@ -233,6 +233,63 @@ void main() {
                 }
               }
             }
+            break;
+          case 5:
+            if (agenda.isEmpty) {
+              print('A agenda está vazia. Nenhum contato para remover.');
+              break;
+            }
+
+            String? nomeBusca;
+            while (nomeBusca == null) {
+              for (var n in agenda) {
+                print('Nome: ${n['nome']} | Email: ${n['email']} | Telefone: ${n['telefone']}');
+              }
+
+              stdout.write('Digite o nome do usuário que deseja remover (ou 0 para cancelar): ');
+              String? entradaBusca = stdin.readLineSync();
+
+              if (entradaBusca == null || entradaBusca.trim().isEmpty) {
+                print('Entrada inválida.');
+                continue;
+              }
+
+              if (entradaBusca.trim() == '0') {
+                print('Operação cancelada.');
+                break;
+              }
+
+              nomeBusca = entradaBusca.trim();
+
+              var contatoEncontrado = agenda.any(
+                (contato) => (contato['nome'] as String).toLowerCase() == nomeBusca!.toLowerCase()
+              );
+
+              if (!contatoEncontrado) {
+                print('Contato não encontrado. Tente novamente.\n');
+                nomeBusca = null;
+              } else {
+                stdout.write('Tem certeza que deseja excluir esse contato (s/n): ');
+                String? resposta = stdin.readLineSync();
+
+                if (resposta != null && resposta.toLowerCase() == 's') {
+                  agenda.removeWhere(
+                    (contato) => (contato['nome'] as String).toLowerCase() == nomeBusca!.toLowerCase()
+                  );
+                  print('Contato removido com sucesso.');
+                  break;
+                } else if (resposta != null && resposta.toLowerCase() == 'n') {
+                  print('Operação cancelada. Voltando ao menu...');
+                  break;
+                } else {
+                  print('Resposta inválida. Digite "s" para sim ou "n" para não.');
+                }
+              }
+            }
+            break;
+          case 0:
+            print('Saindo do programa...');
+            exit(0);
           }
         }
       }
