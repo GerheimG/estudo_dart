@@ -208,6 +208,9 @@ void main() {
                     break;
                   }
 
+                  novoNome = novoNome.trim();  
+                  novoNome = novoNome[0].toUpperCase() + novoNome.substring(1).toLowerCase();
+
                   contato['nome'] = novoNome;
                   print('Nome atualizado com sucesso para: ${contato['nome']}');
                   break;
@@ -273,7 +276,7 @@ void main() {
                 String? resposta = stdin.readLineSync();
 
                 if (resposta != null && resposta.toLowerCase() == 's') {
-                  agenda.removeWhere(
+                  agenda.removeWhere(  
                     (contato) => (contato['nome'] as String).toLowerCase() == nomeBusca!.toLowerCase()
                   );
                   print('Contato removido com sucesso.');
