@@ -13,8 +13,10 @@
 //desenvolver uma função que conte quantos contatos possuem e-mail cadastrado ou até salvar os dados em um arquivo de 
 //texto, consolidando o domínio da estrutura Map aplicada em um contexto realista.
 
-
 import 'dart:io';
+import 'menu.dart';
+import 'listar_contatos.dart';
+import 'formatar_nome.dart';
 
 
 void main() {
@@ -22,34 +24,7 @@ void main() {
   List<Map<String, dynamic>> agenda = [];
 
   while (true) {
-    int? opcao;
-
-
-    print('------MENU DE OPÇÕES------ ');
-    print('\n1 - Cadastrar');
-    print('\n2 - Listar');
-    print('\n3 - Buscar');
-    print('\n4 - Atualizar');
-    print('\n5 - Remover');
-    print('\n0 - Sair');
-
-  
-    while (opcao == null) {
-      stdout.write('Escolha uma opção: (0 - 5): ');
-      String? entradaOpcao = stdin.readLineSync();
-
-      if (entradaOpcao == null || entradaOpcao.isEmpty) {
-        print('Entrada inválida');
-        continue;
-      }
-
-      opcao = int.tryParse(entradaOpcao);
-      if (opcao == null) continue;
-
-      if (opcao > 5 || opcao < 0) {
-        print('\nInsira um valor entre (0 - 5)');
-        opcao = null;
-      } else if (opcao < 5 || opcao > 0) {
+    int? opcao = mostrarMenu();
         switch (opcao) {
           case 1:
             String? nomeContato;
@@ -58,15 +33,14 @@ void main() {
 
             while (nomeContato == null) {
               stdout.write('Insira o nome do contato: ');
-              String? entradaCont = stdin.readLineSync();
+              String? entradaNome = stdin.readLineSync();
 
-              if (entradaCont == null || entradaCont.trim().isEmpty) {
-                print('Entrada inválida');
+              if (entradaNome != null && entradaNome.trim().isNotEmpty) {
+                nomeContato = formatarNome(entradaNome);
+              } else {
+                print('Nome inválido.');
                 continue;
               }
-
-              nomeContato = entradaCont.trim();
-              nomeContato = nomeContato[0].toUpperCase() + nomeContato.substring(1).toLowerCase();
 
               print('Caso não queria informar algum digite "0"');
 
@@ -74,27 +48,21 @@ void main() {
                   stdout.write('Insira o email: ');
                   String? entradaEmail = stdin.readLineSync();
 
-
                   if (entradaEmail == '0') {
                     print('Não informado');
                     emailContato = 'Não informado';
                     break;
                   }
-
                   if (entradaEmail == null || entradaEmail.isEmpty) {
                     print('Insira um email válido.');
                     continue;
                   }
-
-
                   if (entradaEmail.contains('@') && entradaEmail.endsWith('.com')) {
                     emailContato = entradaEmail.trim();
                   } else {
                     print('Email inválido');
                     continue;
                   }
-
-
                 }
               
             while (telefoneContato == null) {
@@ -106,17 +74,14 @@ void main() {
                     telefoneContato = 'Não informado';
                     break;
                   }
-
                   if (entradaTel == null || entradaTel.isEmpty) {
                     print('Entrada inválida');
                     continue;
                   }
-
                   if (entradaTel.length > 10 || entradaTel.length < 10) {
                     print('Insira um número de telefone válido');
                     continue;
                   }
-
                   if (entradaTel.contains('-')) {
                     telefoneContato = entradaTel.trim();
                   } else {
@@ -132,14 +97,13 @@ void main() {
             }
             break;
           case 2:
-            print('Contatos na Agenda');
-            for (var n in agenda) {
-              print('Nome: ${n['nome']} | Email: ${n['email']} | Telefone: ${n['telefone']}');
-            }
+              listarContatos(agenda);
+              print('----------------------');
             break;
           case 3:
             String? nomeBusca;
             while (nomeBusca == null) {
+              listarContatos(agenda);
               stdout.write('Digite o nome do usuário que deseja buscar: ');
               String? entradaBusca = stdin.readLineSync();
 
@@ -160,10 +124,8 @@ void main() {
             }
             break;
           case 4:
-            print('Agenda de Contato: ');
-            for (var n in agenda) {
-              print('Nome: ${n['nome']} | Email: ${n['email']} | Telefone: ${n['telefone']}');
-            }
+            listarContatos(agenda);
+            print('----------------------');
 
             String? nomeBusca;
             while (nomeBusca == null) {
@@ -191,7 +153,6 @@ void main() {
               while (campoUpdate == null) {
                 stdout.write('Qual campo deseja alterar (NOME | EMAIL | TELEFONE): ');
                 String? entradaUp = stdin.readLineSync();
-
                 if (entradaUp == null || entradaUp.trim().isEmpty) {
                   print('Entrada inválida');
                   campoUpdate = null;
@@ -202,14 +163,12 @@ void main() {
                 if (campoUpdate == 'nome') {
                   stdout.write('Digite o novo nome: ');
                   String? novoNome = stdin.readLineSync()?.trim();
-
                   if (novoNome == null || novoNome.isEmpty) {
                     print('Nome inválido. Atualização cancelada.');
                     break;
                   }
 
-                  novoNome = novoNome.trim();  
-                  novoNome = novoNome[0].toUpperCase() + novoNome.substring(1).toLowerCase();
+                  novoNome = formatarNome(novoNome);
 
                   contato['nome'] = novoNome;
                   print('Nome atualizado com sucesso para: ${contato['nome']}');
@@ -222,7 +181,6 @@ void main() {
                     print('Email inválido. Atualização cancelada.');
                     break;
                   }
-
                   if (novoEmail.contains('@') && novoEmail.endsWith('.com')) {
                     novoEmail = novoEmail.trim();
                   } else {
@@ -245,9 +203,8 @@ void main() {
 
             String? nomeBusca;
             while (nomeBusca == null) {
-              for (var n in agenda) {
-                print('Nome: ${n['nome']} | Email: ${n['email']} | Telefone: ${n['telefone']}');
-              }
+              listarContatos(agenda);
+              print('----------------------');
 
               stdout.write('Digite o nome do usuário que deseja remover (ou 0 para cancelar): ');
               String? entradaBusca = stdin.readLineSync();
@@ -256,7 +213,6 @@ void main() {
                 print('Entrada inválida.');
                 continue;
               }
-
               if (entradaBusca.trim() == '0') {
                 print('Operação cancelada.');
                 break;
@@ -296,5 +252,3 @@ void main() {
           }
         }
       }
-    }
-}
