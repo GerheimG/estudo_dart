@@ -9,10 +9,11 @@ int mostrarMenu() {
   print('1 - Adicionar Jogo');
   print('2 - Listar jogos');
   print('3 - Buscar jogo');
+  print('4 - Remover jogo');
   print('0 - Sair');
 
   while (opcao == null) {
-    stdout.write('Escolha uma opção (0 - 3): ');
+    stdout.write('Escolha uma opção (0 - 4): ');
     String? entrada = stdin.readLineSync();
 
     if (entrada == null || entrada.trim().isEmpty) {
@@ -22,7 +23,7 @@ int mostrarMenu() {
 
     opcao = int.tryParse(entrada);
 
-    if (opcao == null || opcao < 0 || opcao > 3) {
+    if (opcao == null || opcao < 0 || opcao > 4) {
       print('Opção inválida. Escolha um número entre 0 e 2.\n');
       opcao = null;
     }
