@@ -3,7 +3,12 @@ import 'dart:io';
 void buscarJogo(List<Map<String, dynamic>> jogos) {
 String? nomeBusca;
       while (nomeBusca == null) {
-              listarJogos(jogos);
+          if (jogos.isEmpty) {
+            print('-' * 50);
+            print('Nenhum jogo cadastrado');
+            print('-' * 50);
+            break;
+          }
               print('-------------------------------------');
               stdout.write('Digite o nome do jogo que deseja buscar: ');
               String? entradaBusca = stdin.readLineSync();
@@ -19,7 +24,6 @@ String? nomeBusca;
                 (Map<String, dynamic> contato) => 
                     contato['nome'].toLowerCase().contains(nomeBusca!.toLowerCase())
               ).toList();
-              print('Resultado da Busca');
               listarJogos(filtro);
             break;
             }

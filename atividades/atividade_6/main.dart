@@ -10,7 +10,14 @@ import 'remover_jogo.dart';
 
 void main() {
   
-  List<Map<String, dynamic>> jogos = [];
+  List<Map<String, dynamic>> jogos = [
+     {
+    'nome': 'The Legend of Zelda: Breath of the Wild','desenvolvedora': 'Nintendo','data': '03/03/2017',},
+  {
+    'nome': 'God of War','desenvolvedora': 'Santa Monica Studio','data': '20/04/2018',},
+  {
+    'nome': 'Cyberpunk 2077','desenvolvedora': 'CD Projekt Red','data': '10/12/2020',}
+  ];
   ordenarJogosPorNome(jogos);
   
   while (true) {
@@ -34,7 +41,9 @@ void main() {
     case 4:
       limpar();
       if (jogos.isEmpty) {
-        print('A agenda está vazia. Nenhum contato para remover.');
+        print('-' * 50);
+        print('A biblioteca está vazia. Nenhum jogo para remover.');
+        print('-' * 50);
         break;
         } else {
           listarJogos(jogos);
@@ -43,7 +52,9 @@ void main() {
         }           
     case 0:
       print('Saindo do programa...');
+      limpar();
       exit(0);
+      
   }
 
   }
