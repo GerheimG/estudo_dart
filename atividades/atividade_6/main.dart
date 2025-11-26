@@ -21,7 +21,7 @@ void main() {
   ordenarJogosPorNome(jogos);
   
   while (true) {
-  int? opcao = mostrarMenu();
+  int? opcao = mostrarMenu();   
 
   switch (opcao) {
     case 1:
